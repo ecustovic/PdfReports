@@ -5,27 +5,18 @@
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Genre</th>
-      <th>Platform</th>
-      <th colspan="3"></th>
+      <th>Pdfkit</th>
+      <th>Weasyprint</th>
+      <th>Rails_pdf</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @games.each do |game| %>
       <tr>
-        <td><%= game.title %></td>
-        <td><%= game.genre %></td>
-        <td><%= game.platform %></td>
-        <td><%= link_to 'Show', game %></td>
-        <td><%= link_to 'Edit', edit_game_path(game) %></td>
-        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Pdfkit', pdfkit_games_path(format: :pdf) %></td>
+        <td><%= link_to 'Weasyprint', weasyprint_games_path(format: :pdf) %></td>
+        <td><%= link_to 'Rails_pdf', rails_pdf_games_path(format: :pdf) %></td>
+
       </tr>
-    <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Game', new_game_path %>

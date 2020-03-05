@@ -25,6 +25,8 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+gem 'pry'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -55,5 +57,15 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'rails_pdf', '~> 0.2.1'
-#gem 'pixelpress'
+gem 'rails_pdf', github: "igorkasyanchuk/rails_pdf"
+gem 'pixelpress'
+gem "pdfkit", "~> 0.8.2"
+
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
+
+
+group :local do	
+  gem 'wkhtmltopdf-binary-edge', '~> 0.12.5.0', require: false	
+end

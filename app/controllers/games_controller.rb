@@ -10,6 +10,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
+    @games = Game.all
   end
 
   # GET /games/new
@@ -58,6 +59,45 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+
+  def pdfkit
+    @game = Game.find(params[:game_id])
+
+    respond_to do |format|
+      format.pdf do
+        report = PdfReport.new(@game)
+        
+        send_data report.to_pdf, filename: "nalaz", disposition: 'inline',
+          type: 'application/pdf'
+      end
+    end
+  end
+
+  def weasyprint
+    @game = Game.first
+
+    respond_to do |format|
+      format.pdf do
+        report = OrderPrinter.report(@game)
+        
+        send_data report.pdf.read, filename: "report", disposition: 'inline',
+          type: 'application/pdf'
+      end
+    end
+  end
+
+  def rails_pdf
+    RailsPDF.template("index/index.pug.erb").locals(game: Game.first).render do |data|
+      send_data(data, type: 'application/pdf', disposition: 'inline', filename: 'report.pdf')
+    end
+  end
+
+  def download_project
+    RailsPDF.template("report3/invoice.pug.erb").locals(project: Project.first).render do |data|
+      send_data(data, type: 'application/pdf', disposition: 'inline', filename: 'report.pdf')
     end
   end
 

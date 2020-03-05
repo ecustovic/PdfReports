@@ -6,8 +6,17 @@ GIT
     faker (2.10.2)
       i18n (>= 1.6, < 2)
 
+GIT
+  remote: https://github.com/igorkasyanchuk/rails_pdf.git
+  revision: 3bb601bac19407750ad09ab7d68b1129380057da
+  specs:
+    rails_pdf (0.2.1)
+      better_tempfile
+      rails (>= 4.2.0)
+
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actioncable (6.0.2.1)
       actionpack (= 6.0.2.1)
@@ -68,6 +77,8 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     better_tempfile (0.1.0)
     bindex (0.8.1)
+    bootsnap (1.4.6)
+      msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.1)
     capybara (3.31.0)
@@ -78,15 +89,29 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    carrierwave (2.1.0)
+      activemodel (>= 5.0.0)
+      activesupport (>= 5.0.0)
+      addressable (~> 2.6)
+      image_processing (~> 1.1)
+      mimemagic (>= 0.3.0)
+      mini_mime (>= 0.1.3)
     childprocess (3.0.0)
+    coderay (1.1.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
     erubi (1.9.0)
     ffi (1.12.2)
+    generator_spec (0.9.4)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    image_processing (1.10.3)
+      mini_magick (>= 4.9.5, < 5)
+      ruby-vips (>= 2.0.17, < 3)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     listen (3.1.5)
@@ -102,12 +127,22 @@ GEM
       mimemagic (~> 0.3.2)
     method_source (0.9.2)
     mimemagic (0.3.4)
+    mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
+    msgpack (1.3.3)
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    pdfkit (0.8.4.1)
+    pixelpress (0.2.2)
+      actionpack
+      generator_spec (~> 0.9.3)
+      weasyprint
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     public_suffix (4.0.3)
     puma (4.3.3)
       nio4r (~> 2.0)
@@ -131,14 +166,12 @@ GEM
       bundler (>= 1.3.0)
       railties (= 6.0.2.1)
       sprockets-rails (>= 2.0.0)
+    rails-assets-jcrop (2.0.4)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
-    rails_pdf (0.2.1)
-      better_tempfile
-      rails (>= 4.2.0)
     railties (6.0.2.1)
       actionpack (= 6.0.2.1)
       activesupport (= 6.0.2.1)
@@ -150,6 +183,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.0)
+    ruby-vips (2.0.17)
+      ffi (~> 1.9)
     ruby_dep (1.5.0)
     rubyzip (2.2.0)
     sass-rails (6.0.0)
@@ -185,6 +220,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
+    weasyprint (0.1.0)
     web-console (4.0.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -201,6 +237,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    wkhtmltopdf-binary-edge (0.12.5.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.3.0)
@@ -209,14 +246,21 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  carrierwave
   faker!
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
+  mini_magick
+  pdfkit (~> 0.8.2)
+  pixelpress
+  pry
   puma (~> 4.1)
   rails (~> 6.0.2, >= 6.0.2.1)
-  rails_pdf (~> 0.2.1)
+  rails-assets-jcrop!
+  rails_pdf!
   sass-rails (>= 6)
   selenium-webdriver
   spring
@@ -227,6 +271,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
+  wkhtmltopdf-binary-edge (~> 0.12.5.0)
 
 RUBY VERSION
    ruby 2.5.1p57
