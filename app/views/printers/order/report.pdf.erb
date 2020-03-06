@@ -1,1 +1,68 @@
-wizard
+<link rel="stylesheet" type="text/css" href="<%= Rails.root %>/app/pdf/shared/stylesheets/font-awesome/style.css">
+<link rel="stylesheet" type="text/css" href="<%= Rails.root %>/app/pdf/shared/stylesheets/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<%= Rails.root %>/app/pdf/shared/stylesheets/bootstrap/bootstrap.print.css">
+<link rel="stylesheet" type="text/css" href="<%= Rails.root %>/app/pdf/index/stylesheets/template.css">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1> Sales Report 2019 for </h1>
+      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam velit urna, tincidunt vel mauris sit amet, dictum fermentum diam. Integer dignissim lorem ante, eget ultrices libero tincidunt at. Integer ut elit volutpat mauris suscipit tempus eget a ipsum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam mattis nisl vel tellus bibendum, eu vulputate ligula semper. Nulla varius nulla sit amet nisl rhoncus dapibus. </p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th> SKU </th>
+            <th> Title </th>
+            <th> East </th>
+            <th> West </th>
+            <th> North </th>
+            <th> South </th>
+            <th> Estimated $ </th>
+          </th>
+        </thead>
+        
+        <tbody>
+          <% 200.times do %>
+            <tr>
+              <td> <%= link_to rand(1_000_000).to_s.rjust(8, "0"), '#' %> </td>
+              <td> <%= ['Phone', 'Computer', 'Laptop', 'PC', 'Beer'].sample %> </td>
+              <td class="text-success"> <%= rand(100) %> </td>
+              <td class="text-success"> <%= rand(100) %> </td>
+              <td class="text-danger"> <%= rand(100) %> </td>
+              <td class="text-danger"> <%= rand(100) %> </td>
+              <td> <%= number_to_currency rand(10000), precision: 0 %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+@page {
+      size: A4;
+      margin: 0.34in 0.34in 0.50in 0.34in;
+}
+template#page-footer
+  style(type='text/css').
+    .pdfheader {
+      font-size: 9px;
+      color: #555;
+      font-family: Helvetica;
+      font-weight: normal;
+      width: 1000px;
+      border-top: 1px solid #ccc;
+      margin-left: 10%;
+      margin-right: 10%;
+      padding-top: 1mm;
+      margin-bottom: -1mm;
+      text-align: center;
+    }
+    .pageNumber {
+      color: red;
+    }
+  
+  .pdfheader Page #[span.pageNumber] / #[span.totalPages]
+
+  </style>

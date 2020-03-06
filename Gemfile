@@ -64,7 +64,8 @@ gem "pdfkit", "~> 0.8.2"
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
-
+gem "benchmark-ips"
+gem 'benchmark-ipsa'
 
 group :local do	
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.5.0', require: false	

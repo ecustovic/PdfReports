@@ -1,3 +1,6 @@
+require 'benchmark/ips'
+require 'benchmark/ipsa'
+
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
@@ -64,7 +67,7 @@ class GamesController < ApplicationController
 
 
   def pdfkit
-    @game = Game.find(params[:game_id])
+    @game = Game.first
 
     respond_to do |format|
       format.pdf do
@@ -78,15 +81,33 @@ class GamesController < ApplicationController
 
   def weasyprint
     @game = Game.first
-
-    respond_to do |format|
-      format.pdf do
-        report = OrderPrinter.report(@game)
+    
+    # respond_to do |format|
+    #   format.pdf do
+    #     report = OrderPrinter.report(@game)
         
-        send_data report.pdf.read, filename: "report", disposition: 'inline',
-          type: 'application/pdf'
+    #     send_data report.pdf.read, filename: "report", disposition: 'inline',
+    #       type: 'application/pdf'
+    #   end
+    # end
+
+    Benchmark.ipsa do |x| 
+      x.report("weasyprint") do 
+        weasyprint = OrderPrinter.report(@game)
+        weasyprint.pdf.read
       end
+      x.report("pdfkit") do 
+        pdfkit = PdfReport.new(@game)
+        pdfkit.to_pdf
+      end
+      x.report("rails_pdf") do 
+        rails_pdf = RailsPDF.template("index/index.pug.erb").locals(game: @game)
+        rails_pdf.render { |data| data }
+      end
+
+      # x.compare!
     end
+
   end
 
   def rails_pdf
