@@ -59,7 +59,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rails_pdf', github: "igorkasyanchuk/rails_pdf"
 gem 'pixelpress'
-gem "pdfkit", "~> 0.8.2"
+gem "pdfkit", "~> 0.8.7"
 
 gem 'mini_magick'
 gem 'carrierwave'
